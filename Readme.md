@@ -47,13 +47,30 @@ A Test is an object containing the following properties:
  * **positive** {boolean} *(optionnal)* Tell if the request should succeed (status<400) or fail (status>400).**Defaults: true**.
  * **expected** {any} *(optionnal)* If provided, the request result will match the server response to the object provided.
 
-You can use the following function to make writing tests easier:
+You can use the function `Testing.createTest` to make writing tests easier:
+
+```javascript
+const Testing = require('simple-ql-testing')
+const createTest = Testing.createTest
+```
+
+This is actually just a shortcut for the following function:
 
 ```javascript
 function createTest (positive, name, query, expected) {
   return { positive, name, query, expected }
 }
 ```
+
+### **Run a test**
+
+To run a test, just run execute the test function.
+
+```javascript
+test(createTest(false, 'bad request', 'dummy content'))
+```
+
+**Note**: The result of such a call is a Promise that resolves or fails with the request response.
 
 ### **Run a test suite**
 
@@ -66,4 +83,27 @@ test([
 ]).then(() => console.log('SUCCESS'), err => console.error('FAILED:', err.message))
 ```
 
-**Note**: The tests will run sequentially, and in order. The `test` function returns a Promise resolved if all the tests where resolved, and rejected as soon as one test fails. The next tests in the suite will not be run.
+**Note**: The tests will run sequentially, and in order. The `test` function returns a Promise resolved with the response of the last request if all the tests were successful, and rejected as soon as one test fails. In such a case, the next tests in the suite will not be run.
+
+## Changing headers
+
+### **JWT Token**
+
+To set the jwt token used for making requests, use the `Testing.setJWT` function:
+
+```javascript
+const Testing = require('simple-ql-testing')
+const jwt = "<your jwt>"
+Testing.setJWT(jwt)
+```
+
+### **Other headers**
+
+You can retrieve the axios object from the `Testing` object:
+
+```javascript
+const Testing = require('simple-ql-testing')
+const axios = Testing.axios
+```
+
+You can check [there](https://github.com/axios/axios) to see what you can and cannot do.

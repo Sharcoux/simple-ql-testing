@@ -12,9 +12,7 @@ app.post('/', (req, res) => {
 app.use((err, req, res, next) => console.log(err))
 app.listen(80)
 const test = Testing('/')
-function createTest (positive, name, query, expected) {
-  return { positive, name, query, expected }
-}
+const createTest = Testing.createTest
 test([
   createTest(true, 'good request', { test: 'test' }),
   createTest(false, 'bad request', 'not json'),

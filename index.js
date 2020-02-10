@@ -51,3 +51,9 @@ module.exports = url => {
   }
   return testList => Array.isArray(testList) ? testList.reduce((chain, next) => chain.then(test(next)), Promise.resolve()) : test(testList)()
 }
+
+module.exports.createTest = (positive, name, query, expected) => ({ positive, name, query, expected })
+
+module.exports.setJWT = jwt => (axios.defaults.headers.common.Authorization = 'Bearer ' + jwt)
+
+module.exports.axios = axios
