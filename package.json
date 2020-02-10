@@ -4,7 +4,8 @@
   "description": "Testing library for simple-ql applications",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
