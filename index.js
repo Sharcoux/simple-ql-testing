@@ -70,7 +70,7 @@ function shouldSucceed (response) {
  * @param {string} url The endpoint to be tested
  * @returns {(testSuite: Test[] | Test) => Promise<void | AxiosResponse>}
  */
-const createTests = url => {
+function createTests (url) {
   if (!url) throw new Error('url must be provided as first argument of simple-ql-testing')
   /**
    * Send the request to the endpoint
@@ -127,16 +127,16 @@ const createTests = url => {
  * @param {object=} expected The expected result of the request
  * @returns {Test} The test created
  */
-const createTest = (positive, name, query, expected) => ({ positive, name, query, expected })
+function createTest (positive, name, query, expected) { return ({ positive, name, query, expected }) }
 
 /**
  * Set the new value of the jwt token
  * @param {string} jwt The jwt token
  */
-const setJWT = jwt => (axios.defaults.headers.common.Authorization = 'Bearer ' + jwt)
+function setJWT (jwt) { (axios.defaults.headers.common.Authorization = 'Bearer ' + jwt) }
 
 /** Remove the current jwt token */
-const removeJWT = () => delete axios.defaults.headers.common.Authorization
+function removeJWT () { delete axios.defaults.headers.common.Authorization }
 
 module.exports = createTests
 module.exports.createTest = createTest
