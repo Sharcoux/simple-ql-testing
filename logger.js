@@ -42,7 +42,7 @@ Object.keys(colors).forEach(key => (colorMap[colors[key]] = `\x1b[${key}m`))
  * @param {keyof categories} category The category of the message going to be logged
  * @param  {...string} data The data to log
  */
-function log(category, ...data) {
+function log (category, ...data) {
   const c = categories[category]
   if (c === undefined) return
   else if (c === 'default') console.log(...data)
